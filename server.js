@@ -10,12 +10,6 @@ app.use(express.json());
 
 // Endpoint para enviar correos
 app.post('/send-email', async (req, res) => {
-    const { to, subject, text } = req.body;
-
-    if (!to || !subject || !text) {
-        return res.status(400).json({ error: 'Faltan parámetros: to, subject, text' });
-    }
-
     try {
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
@@ -29,9 +23,9 @@ app.post('/send-email', async (req, res) => {
 
         const mailOptions = {
             from: process.env.SMTP_USER,
-            to,
-            subject,
-            text
+            to: "soporte@lanubetv.net",
+            subject: "Prueba de correo",
+            text: "Este es un correo de prueba"
         };
 
         const info = await transporter.sendMail(mailOptions);
